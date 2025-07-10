@@ -1,3 +1,128 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-    background-color: aqua;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #0e1629; /* Warna latar gelap */
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Container utama */
+main {
+  background-color: #1e2a45;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  width: 90%;
+  max-width: 600px;
+}
+
+/* Judul */
+main h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #dcdffc;
+}
+
+/* Form input */
+form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+form input[type="text"],
+form input[type="date"] {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #3b4b66;
+  border-radius: 8px;
+  background-color: #101926;
+  color: white;
+}
+
+form button {
+  padding: 10px 15px;
+  border: none;
+  background-color: #5061f3;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+form button:hover {
+  background-color: #3b4bdc;
+}
+
+/* Tombol Delete All */
+button[type="button"] {
+  margin-top: 10px;
+  background-color: #7d89ff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  cursor: pointer;
+}
+
+button[type="button"]:hover {
+  background-color: #5e6efc;
+}
+
+/* Tabel */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #141d2f;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 12px;
+  text-align: center;
+  color: white;
+}
+
+thead {
+  background-color: #1e2a45;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #19243a;
+}
+
+tbody tr:hover {
+  background-color: #22314e;
+}
+
+/* Empty state */
+tbody td[colspan="4"] {
+  font-style: italic;
+  color: #8899cc;
+}
+
+/* Footer */
+footer {
+  border-top: 1px solid #2a3550;
+  margin-top: 50px;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  color: #888;
 }

@@ -8,19 +8,21 @@
 </head>
 <body>
     <!-- Hero Website -->
-    <header></header>
+    <div class="wrapper">
     <main>
         <h1>Todo List</h1>
+        <!-- Todo Input -->
         <form id="addTodo">
-            <input type="text" id="todo" placeholder="Add a todo..." required>
+            <input type="text" id="todo" placeholder="Add a new task ..." required>
             <input type="date" id="date" required>
             <button id="submit">+</button>
         </form>
 
-        <br>
-        <input type="search" name="" id="">
-        <button type="button" id="">DELETE ALL</button>
-        <br>
+        <div class="controls">
+            <input type="search" id="search" placeholder="Filter tasks...">
+            <button type="button" id="deleteAll">DELETE ALL</button>
+        </div>
+        
         <table>
             <thead>
                 <tr>
@@ -35,8 +37,9 @@
         </table>
     </main>
     <footer>
-        <span>ashi-ihsa. All rights reserved.</span>
+        <p>Made with ❤️ by Ashi Ihsa. All rights reserved.</p>
     </footer>
+    </div>    
     <script src="/js/script.js"></script>
 </body>
 </html>
