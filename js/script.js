@@ -1,5 +1,6 @@
 // Inisialisasi array kosong untuk menyimpan daftar todo
 const todos = new Array();
+const search = document.getElementById("search");
 
 // ================ Display Todos ================ //
 const todoList = document.getElementById("todoList");
@@ -26,19 +27,43 @@ function renderTodos() {
     return;
   }
 
-  todos.forEach((todo, index) => {
+  todos.forEach((todo) => {
       const daysLeft = calculateDaysLeft(todo.date);
 
       let emote = "✅";
-      if (daysLeft < 0) emote = "❌";
-      else if (daysLeft <= 1) emote = "⚠️";
-
+      if (todo.status=="Selesai") {
+        emote = "✅"
+      } else if (daysLeft < 0) {
+        todo.status = "Telat"
+        emote = "⏰"
+      }else if (daysLeft <= 1) {
+        todo.status = "Kumpulnya hari ini!"
+        emote = "📅"
+      }  else if (daysLeft <= 3) {
+        todo.status = "Hampir Deadline"
+        emote = "⚠️"
+      } else {
+        emote = "🕒"
+        todo.status = "Masih Lama"
+      };
+      
       const row = document.createElement("tr");
       row.innerHTML = `
           <td>${todo.text}</td>
           <td>In ${daysLeft} day${daysLeft !== 1 ? 's' : ''}</td>
           <td>${emote} ${todo.status}</td>
-          <td><button onclick="deleteTodo(${index})">DROP</button></td>
+          <td style="display: flex; gap: 8px; align-items: center;">
+            ${todo.status !== "Selesai" ? `
+            <i class="fa-solid fa-check"
+              style="background: #63E6BE; color: white; padding: 8px; border-radius: 6px; cursor: pointer; transition: 0.3s;"
+              data-id="${todo.id}"></i>
+            ` : ""}
+            <i class="fa-solid fa-trash"
+              style="background: #dd0808; color: white; padding: 8px; border-radius: 6px; cursor: pointer; transition: 0.3s;"
+              data-id="${todo.id}">
+            </i>
+          </td>
+
       `;
       todoList.appendChild(row);
   });
@@ -65,7 +90,41 @@ addTodoFrom.addEventListener("submit", function(e) {
   renderTodos();
   todo.value="";
   date.value="";
-})
+});
+// ================ Delete ALL ================ //
+const deleteAllButton = document.getElementById("deleteAll");
+deleteAllButton.addEventListener("click", function(e){
+  e.preventDefault();
+  if (confirm("Apakah Anda yakin ingin menghapus semua data?")) {
+    todos.length = 0;
+    renderTodos();
+  }
+});
 
+// ================ Action ================ //
+document.getElementById("todoList").addEventListener("click", function (e) {
+  if (e.target.matches(".fa-trash")) {
+    const id = e.target.getAttribute("data-id");
+    deleteTodo(id);
+    renderTodos();
+  }
+  if (e.target.matches(".fa-check")) {
+    const id = e.target.getAttribute("data-id");
+    updateStatus(id,"Selesai");
+    renderTodos();
+  }
+});
+
+const updateStatus = (id, newStatus) => {
+  const todo = todos.find(todo => todo.id === id);
+  if (todo) {
+    todo.status = newStatus;
+  }
+}
+const deleteTodo = (id) => {
+  if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
+    todos.splice(id, 1);
+  }
+};
 // ================ Always Run ================ //
 renderTodos();
