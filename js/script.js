@@ -13,10 +13,10 @@ function calculateDaysLeft(dueDate) {
   return diffDays;
 }
 
-function renderTodos() {
+function renderTodos(keyword = "") {
   todoList.innerHTML = ""; // Kosongkan isi tabel dulu
-
-  if (todos.length === 0) {
+  const filteredTodos = todos.filter(todo => todo.text.toLowerCase().includes(keyword.toLowerCase()));
+  if (filteredTodos.length === 0) {
     const row = document.createElement("tr");
     row.innerHTML = `
         <td colspan="4" style="text-align: center; font-style: italic;">
@@ -27,7 +27,7 @@ function renderTodos() {
     return;
   }
 
-  todos.forEach((todo) => {
+  filteredTodos.forEach((todo) => {
       const daysLeft = calculateDaysLeft(todo.date);
 
       let emote = "✅";
@@ -126,5 +126,10 @@ const deleteTodo = (id) => {
     todos.splice(id, 1);
   }
 };
+// ================ Handle Searching ================ //
+document.getElementById("search").addEventListener("input", function (e) {
+  const keyword = e.target.value.toLowerCase();
+  renderTodos(keyword);
+});
 // ================ Always Run ================ //
 renderTodos();
